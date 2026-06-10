@@ -17,6 +17,25 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mangaList = [
+      {
+        "title": "ITSUKA KOTORI",
+        "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
+      },
+      {
+        "title": "ITSUKA KOTORI",
+        "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
+      },
+      {
+        "title": "ITSUKA KOTORI",
+        "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
+      },
+      {
+        "title": "ITSUKA KOTORI",
+        "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -82,22 +101,14 @@ class MyHomePage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                        child: Image.network(
-                          "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg",
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
+                        child: ImageFiltered(
+                          imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: Image.network(
+                            "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg",
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.high,
+                          ),
                         )
-                    ),
-                    Positioned.fill(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                          sigmaX: 15,
-                          sigmaY: 15,
-                        ),
-                        child: Container(
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ),
                     ),
                     Padding(
                       padding: EdgeInsetsGeometry.all(10),
@@ -169,7 +180,51 @@ class MyHomePage extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 20),
+              GridView.builder(
+                shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: mangaList.length,
+                  itemBuilder: (context, index) {
+                    final manga = mangaList[index];
+
+                    return Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      decoration: BoxDecoration(
+                        color: AppColor.card,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: AppColor.border,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network( manga["image"].toString(),
+                                  height: 250,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high,
+                            ),
+                          )),
+                          SizedBox(height: 5),
+                          Text(
+                            manga["title"].toString(),
+                            style: TextStyle(
+                              color: AppColor.text,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  })
             ],
           )
       ),

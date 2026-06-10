@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/core/colors/app_color.dart';
 
@@ -11,8 +13,7 @@ class MyHomePage extends StatelessWidget {
   // This class is the configuration for the state. It holds the values (in this
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+  // always marked "final".];
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +76,100 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Halo"))
+              Container(
+                width: double.infinity,
+                height: 180,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                        child: Image.network(
+                          "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg",
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.high,
+                        )
+                    ),
+                    Positioned.fill(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 15,
+                          sigmaY: 15,
+                        ),
+                        child: Container(
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.all(10),
+                      child: Row(
+                        spacing: 15,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg",
+                              width: 100,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.high,
+                            ),
+                          ),
+                          Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                spacing: 5,
+                                children: [
+                                  Text(
+                                    "ITSUKA KOTORI",
+                                    style: TextStyle(
+                                      color: AppColor.primary,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Ini adalah my wife woi, tolong jangan di klaim!!",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppColor.primary,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(
+                                            color: AppColor.border,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Action",
+                                          style: TextStyle(
+                                            color: AppColor.text,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      )
+                                    ]
+                                  )
+                                ],
+                              )
+                          )
+                        ],
+                      )
+                    )
+                  ],
+                ),
+              )
             ],
           )
       ),

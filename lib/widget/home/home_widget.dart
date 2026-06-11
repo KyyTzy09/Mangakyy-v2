@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
         "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
       },
       {
-        "title": "ITSUKA KOTORI",
+        "title": "KOTORI ITSUKA",
         "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
       },
       {
@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
         "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
       },
       {
-        "title": "ITSUKA KOTORI",
+        "title": "KOTORI",
         "image": "https://i.pinimg.com/1200x/8b/d1/5e/8bd15ec170b7fd09d58fd8236a9feb97.jpg"
       },
     ];

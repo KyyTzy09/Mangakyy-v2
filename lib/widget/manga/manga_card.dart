@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:mobile/common/models/comic_model.dart';
 import 'package:mobile/core/colors/app_color.dart';
 
-class MangaCard extends StatelessWidget {
+class MangaCard extends StatefulWidget {
   final ComicModel manga;
   const MangaCard({super.key, required this.manga});
+
+  @override
+  State<MangaCard> createState() => _MangaCardState();
+}
+
+class _MangaCardState extends State<MangaCard> {
+  late ComicModel manga;
+  bool _isHovering = false;
+
+  @override
+  void initState() {
+    super.initState();
+    manga = widget.manga;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,130 +27,141 @@ class MangaCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {
-          
-        },
+        onTap: () {},
         splashColor: AppColor.primary..withValues(alpha: 30),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          verticalDirection: VerticalDirection.down,
-          spacing: 2,
-          children: [
-            Expanded(
-              child: Stack(
-                alignment: Alignment.center,
-                clipBehavior: Clip.none,
-                fit: StackFit.expand,
-                children: [
-                  Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10),
-                      ),
-                      child: Image.network(
-                        manga.image ?? "",
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.high,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: Colors.grey,
-                          child: Icon(Icons.error),
+        child: MouseRegion(
+          onEnter: (event) => setState(() => _isHovering = true),
+          onExit: (event) => setState(() => _isHovering = false),
+          cursor: SystemMouseCursors.click,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            verticalDirection: VerticalDirection.down,
+            spacing: 2,
+            children: [
+              Expanded(
+                child: Stack(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.none,
+                  fit: StackFit.expand,
+                  children: [
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        child: AnimatedScale(
+                          scale: _isHovering ? 1.1 : 1.0,
+                          duration: Duration(milliseconds: 200),
+                          child: Image.network(
+                            manga.image ?? "",
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                child: Icon(Icons.broken_image),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      backgroundBlendMode: BlendMode.darken,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.transparent,
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.8),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.7),
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10),
-                                  topLeft: Radius.circular(10),
-                                ),
-                              ),
-                              padding: EdgeInsets.all(4),
-                              child: Text(
-                                manga.status ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w100,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                    Container(
+                      decoration: BoxDecoration(
+                        backgroundBlendMode: BlendMode.darken,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.8),
                           ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
-                              Text(
-                                manga.title ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.7),
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                manga.chapter ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: AppColor.text.withValues(alpha: 110),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w100,
+                                padding: EdgeInsets.all(4),
+                                child: Text(
+                                  manga.status ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AnimatedDefaultTextStyle(
+                                  duration: Duration(milliseconds: 200),
+                                  style: TextStyle(
+                                    color: _isHovering
+                                        ? AppColor.primary
+                                        : Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  child: Text(
+                                    manga.title ?? "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Text(
+                                  manga.chapter ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: AppColor.text.withValues(alpha: 110),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                manga.description ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-                textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  manga.description ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  textAlign: TextAlign.left,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mobile/common/models/comic_model.dart';
 import 'package:mobile/core/colors/app_color.dart';
+import 'package:mobile/widget/home/home_carousel.dart';
 import 'package:mobile/widget/manga/manga_card.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -18,27 +20,87 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mangaList = [
-      {
-        "title": "ITSUKA KOTORI",
-        "image":
+    final List<ComicModel> mangaList = [
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
             "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-      },
-      {
-        "title": "KOTORI ITSUKA",
-        "image":
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
             "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-      },
-      {
-        "title": "ITSUKA KOTORI",
-        "image":
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
             "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-      },
-      {
-        "title": "KOTORI",
-        "image":
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
             "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-      },
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
+            "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
+            "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
+            "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
+      ComicModel(
+        title: "Evernight honkai star rail",
+        image:
+            "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
+        description:
+            "Evernight is a girl who is a member of the Honkai Star Rail team. She is a skilled fighter and has a strong sense of justice.",
+        type: "Action, Adventure",
+        status: "Ongoing",
+        chapter: "Chapter 1",
+      ),
     ];
 
     return Scaffold(
@@ -98,117 +160,27 @@ class MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 180,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Image.network(
-                          "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                                color: Colors.grey,
-                                child: Icon(Icons.error),
-                              ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsGeometry.all(10),
-                      child: Row(
-                        spacing: 15,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-                              width: 100,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.high,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Container(
-                                    width: 100,
-                                    height: double.infinity,
-                                    color: Colors.grey,
-                                    child: Icon(Icons.error),
-                                  ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              spacing: 5,
-                              children: [
-                                Text(
-                                  "ITSUKA KOTORI",
-                                  style: TextStyle(
-                                    color: AppColor.primary,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "Ini adalah my wife woi, tolong jangan di klaim!!",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.primary,
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                          color: AppColor.border,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Action",
-                                        style: TextStyle(
-                                          color: AppColor.text,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              HomeCarousel(),
               SizedBox(height: 20),
-              GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: BorderSide.strokeAlignCenter,
-                ),
-                itemCount: mangaList.length,
-                itemBuilder: (context, index) {
-                  final manga = mangaList[index];
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  int columns = (constraints.maxWidth / 200).round();
 
-                  return MangaCard(manga: manga);
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: columns < 3 ? 3 : columns,
+                      childAspectRatio: 0.7,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      mainAxisExtent: columns < 3 ? 200 : 300,
+                    ),
+                    itemCount: mangaList.length,
+                    itemBuilder: (context, index) {
+                      return MangaCard(manga: mangaList[index]);
+                    },
+                  );
                 },
               ),
             ],

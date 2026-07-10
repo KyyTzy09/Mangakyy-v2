@@ -160,7 +160,7 @@ class MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HomeCarousel(),
+              HomeCarousel(comicList: mangaList),
               SizedBox(height: 20),
               LayoutBuilder(
                 builder: (context, constraints) {

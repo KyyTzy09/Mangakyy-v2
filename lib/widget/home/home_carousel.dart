@@ -1,106 +1,112 @@
-import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mobile/common/models/comic_model.dart';
 import 'package:mobile/core/colors/app_color.dart';
+import 'package:mobile/widget/home/home_carousel_card.dart';
 
-class HomeCarousel extends StatelessWidget {
-  const HomeCarousel({super.key});
+class HomeCarousel extends StatefulWidget {
+  final List<ComicModel> comicList;
+  const HomeCarousel({super.key, required this.comicList});
 
   @override
-  Widget build(BuildContext context) {
+  State<HomeCarousel> createState() => _HomeCarouselState();
+}
+
+class _HomeCarouselState extends State<HomeCarousel> {
+  late List<ComicModel> comicList;
+  late Timer _timer;
+  late PageController _pageController;
+  late int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    comicList = widget.comicList;
+    _pageController = PageController(viewportFraction: 1);
+    startAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void handlePageChanged(int index) {
+    setState(() {
+      _currentPage = index;
+    });
+  }
+
+  void handlePageChanger(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void startAutoScroll() {
+    _timer = Timer.periodic(Duration(milliseconds: 4000), (Timer timer) {
+      if (_currentPage < comicList.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      if (_pageController.hasClients) {
+        handlePageChanger(_currentPage);
+      }
+    });
+  }
+
+  @override
+  Widget build(context) {
+    double width = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: double.infinity,
+      width: width,
+      height: 200,
       child: Stack(
+        fit: StackFit.expand,
+        alignment: Alignment.center,
         children: [
-          Positioned.fill(
-            child: ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Image.network(
-                "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.high,
-                errorBuilder: (context, error, stackTrace) =>
-                    Container(color: Colors.grey, child: Icon(Icons.error)),
-              ),
-            ),
+          PageView.builder(
+            controller: _pageController,
+            itemCount: comicList.length,
+            onPageChanged: handlePageChanged,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              final comic = comicList[index];
+              return HomeCarouselCard(imageUrl: comic.image ?? "");
+            },
           ),
-          Container(
-            height: 200,
-            child: Padding(
-              padding: EdgeInsetsGeometry.all(10),
-              child: Row(
-                spacing: 15,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-                      width: 100,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.high,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        width: 100,
-                        height: double.infinity,
-                        color: Colors.grey,
-                        child: Icon(Icons.error),
-                      ),
+          Positioned(
+            bottom: 8,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                comicList.length,
+                (index) => GestureDetector(
+                  onLongPress: () => _timer.cancel(),
+                  onLongPressUp: () => startAutoScroll(),
+                  onTap: () => handlePageChanger(index),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    width: _currentPage == index ? 24 : 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: _currentPage == index
+                          ? AppColor.primary
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(4),
+                      shape: BoxShape.rectangle,
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      spacing: 5,
-                      children: [
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "ITSUKA KOTORI",
-                            style: TextStyle(
-                              color: AppColor.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "Ini adalah my wife woi, tolong jangan di klaim!!",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white.withAlpha(110),
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColor.primary,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: AppColor.border),
-                              ),
-                              child: Text(
-                                "Action",
-                                style: TextStyle(
-                                  color: AppColor.text,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

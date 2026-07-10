@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mobile/common/models/comic_model.dart';
 import 'package:mobile/core/colors/app_color.dart';
 
-class MangaCard extends StatefulWidget {
-  final ComicModel manga;
-  const MangaCard({super.key, required this.manga});
+class ComicCard extends StatefulWidget {
+  final ComicModel comic;
+  const ComicCard({super.key, required this.comic});
 
   @override
-  State<MangaCard> createState() => _MangaCardState();
+  State<ComicCard> createState() => _ComicCardState();
 }
 
-class _MangaCardState extends State<MangaCard> {
-  late ComicModel manga;
+class _ComicCardState extends State<ComicCard> {
+  late ComicModel comic;
   bool _isHovering = false;
 
   @override
   void initState() {
     super.initState();
-    manga = widget.manga;
+    comic = widget.comic;
   }
 
   @override
@@ -55,7 +55,7 @@ class _MangaCardState extends State<MangaCard> {
                           scale: _isHovering ? 1.1 : 1.0,
                           duration: Duration(milliseconds: 200),
                           child: Image.network(
-                            manga.image ?? "",
+                            comic.image ?? "",
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -98,7 +98,7 @@ class _MangaCardState extends State<MangaCard> {
                                 ),
                                 padding: EdgeInsets.all(4),
                                 child: Text(
-                                  manga.status ?? "",
+                                  comic.status ?? "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -126,13 +126,13 @@ class _MangaCardState extends State<MangaCard> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                   child: Text(
-                                    manga.title ?? "",
+                                    comic.title ?? "",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                                 Text(
-                                  manga.chapter ?? "",
+                                  comic.chapter ?? "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -153,7 +153,7 @@ class _MangaCardState extends State<MangaCard> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  manga.description ?? "",
+                  comic.description ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(color: Colors.white, fontSize: 12),

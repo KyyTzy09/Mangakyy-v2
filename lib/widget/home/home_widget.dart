@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/common/models/comic_model.dart';
 import 'package:mobile/core/colors/app_color.dart';
 import 'package:mobile/widget/home/home_carousel.dart';
-import 'package:mobile/widget/manga/manga_card.dart';
+import 'package:mobile/widget/manga/comic_card.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -20,7 +20,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ComicModel> mangaList = [
+    final List<ComicModel> comicList = [
       ComicModel(
         title: "Evernight honkai star rail",
         image:
@@ -160,11 +160,12 @@ class MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HomeCarousel(comicList: mangaList),
+              HomeCarousel(comicList: comicList),
               SizedBox(height: 20),
               LayoutBuilder(
                 builder: (context, constraints) {
                   int columns = (constraints.maxWidth / 200).round();
+                  final comic = comicList[0];
 
                   return GridView.builder(
                     shrinkWrap: true,
@@ -176,9 +177,9 @@ class MyHomePage extends StatelessWidget {
                       mainAxisSpacing: 10,
                       mainAxisExtent: columns < 3 ? 200 : 300,
                     ),
-                    itemCount: mangaList.length,
+                    itemCount: comicList.length,
                     itemBuilder: (context, index) {
-                      return MangaCard(manga: mangaList[index]);
+                      return ComicCard(comic: comic);
                     },
                   );
                 },

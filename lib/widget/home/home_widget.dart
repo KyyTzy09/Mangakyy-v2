@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/widget/home/home_carousel.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_header.dart';
 import 'package:mangakyy_v2_mobile/widget/manga/comic_card.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -163,8 +164,11 @@ class MyHomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HomeCarousel(comicList: comicList),
-              SizedBox(height: 20),
               // Recommended Section
+              HomeHeader(
+                icon: Icon(Icons.trending_up, color: Colors.red),
+                title: "Recommended",
+              ),
               LayoutBuilder(
                 builder: (context, constraints) {
                   int columns = (constraints.maxWidth / 200).round();
@@ -174,7 +178,11 @@ class MyHomePage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: width < 300 ? 2 : columns < 3 ? 3 : columns,
+                      crossAxisCount: width < 300
+                          ? 2
+                          : columns < 3
+                          ? 3
+                          : columns,
                       childAspectRatio: 0.7,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -188,7 +196,10 @@ class MyHomePage extends StatelessWidget {
                 },
               ),
               // Popular Section
-              SizedBox(height: 20),
+              HomeHeader(
+                icon: Icon(Icons.bookmark, color: Colors.amber),
+                title: "Popular",
+              ),
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 250,

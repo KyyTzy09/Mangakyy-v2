@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/models/comic_model.dart';
-import 'package:mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 
 class ComicCard extends StatefulWidget {
   final ComicModel comic;
@@ -22,6 +22,7 @@ class _ComicCardState extends State<ComicCard> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Card(
       color: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -53,6 +54,7 @@ class _ComicCardState extends State<ComicCard> {
                         ),
                         child: AnimatedScale(
                           scale: _isHovering ? 1.1 : 1.0,
+                          curve: Curves.fastOutSlowIn,
                           duration: Duration(milliseconds: 200),
                           child: Image.network(
                             comic.image ?? "",
@@ -87,6 +89,7 @@ class _ComicCardState extends State<ComicCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 decoration: BoxDecoration(
@@ -96,9 +99,12 @@ class _ComicCardState extends State<ComicCard> {
                                     topLeft: Radius.circular(10),
                                   ),
                                 ),
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 5,
+                                ),
                                 child: Text(
-                                  comic.status ?? "",
+                                  "KR",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -107,6 +113,41 @@ class _ComicCardState extends State<ComicCard> {
                                     fontWeight: FontWeight.w100,
                                   ),
                                   textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.7),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 5,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 12,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      "0.0",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -129,6 +170,11 @@ class _ComicCardState extends State<ComicCard> {
                                     comic.title ?? "",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: AppColor.text,
+                                      fontSize: width < 400 ? 12 : 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Text(
@@ -137,7 +183,7 @@ class _ComicCardState extends State<ComicCard> {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: AppColor.text.withValues(alpha: 110),
-                                    fontSize: 12,
+                                    fontSize: width < 300 ? 10 : 12,
                                     fontWeight: FontWeight.w100,
                                   ),
                                 ),
@@ -152,12 +198,29 @@ class _ComicCardState extends State<ComicCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  comic.description ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                  textAlign: TextAlign.left,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 3,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.timer_outlined,
+                        color: AppColor.primary,
+                        size: width < 300 ? 10 : width < 600 ? 12 : 14,
+                      ),
+                      Text(
+                        "10 min ago",
+                        style: TextStyle(
+                          color: AppColor.text.withValues(alpha: 110),
+                          fontWeight: FontWeight.w100,
+                          fontSize: width < 300 ? 8 : 12,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

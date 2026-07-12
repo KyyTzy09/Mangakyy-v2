@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/common/models/comic_model.dart';
-import 'package:mobile/core/colors/app_color.dart';
-import 'package:mobile/widget/home/home_carousel.dart';
-import 'package:mobile/widget/manga/comic_card.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_carousel.dart';
+import 'package:mangakyy_v2_mobile/widget/manga/comic_card.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -20,6 +20,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     final List<ComicModel> comicList = [
       ComicModel(
         title: "Evernight honkai star rail",
@@ -154,7 +156,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(width < 600 ? 10 : 20),
           child: Column(
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -162,6 +164,7 @@ class MyHomePage extends StatelessWidget {
             children: [
               HomeCarousel(comicList: comicList),
               SizedBox(height: 20),
+              // Recommended Section
               LayoutBuilder(
                 builder: (context, constraints) {
                   int columns = (constraints.maxWidth / 200).round();
@@ -171,7 +174,7 @@ class MyHomePage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns < 3 ? 3 : columns,
+                      crossAxisCount: width < 300 ? 2 : columns < 3 ? 3 : columns,
                       childAspectRatio: 0.7,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -183,6 +186,20 @@ class MyHomePage extends StatelessWidget {
                     },
                   );
                 },
+              ),
+              // Popular Section
+              SizedBox(height: 20),
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 250,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: comicList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) =>
+                    ComicCard(comic: comicList[index]),
               ),
             ],
           ),

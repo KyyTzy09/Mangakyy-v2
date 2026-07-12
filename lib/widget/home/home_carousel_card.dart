@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 
 class HomeCarouselCard extends StatelessWidget {
   final String imageUrl;
@@ -75,7 +75,7 @@ class HomeCarouselCard extends StatelessWidget {
                             child: Text(
                               "ITSUKA KOTORI",
                               style: TextStyle(
-                                color: AppColor.primary,
+                                color: AppColor .primary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
@@ -92,7 +92,7 @@ class HomeCarouselCard extends StatelessWidget {
                             ),
                           ),
                           Row(
-                            children: [
+                            children: [ 
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,

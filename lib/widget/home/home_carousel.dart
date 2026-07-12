@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/common/models/comic_model.dart';
-import 'package:mobile/core/colors/app_color.dart';
-import 'package:mobile/widget/home/home_carousel_card.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_carousel_card.dart';
 
 class HomeCarousel extends StatefulWidget {
   final List<ComicModel> comicList;

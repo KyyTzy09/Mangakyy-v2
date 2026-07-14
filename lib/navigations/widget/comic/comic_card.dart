@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
 
 class ComicCard extends StatefulWidget {
   final ComicModel comic;
@@ -30,7 +31,7 @@ class _ComicCardState extends State<ComicCard> {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          context.go('/comic-detail', extra: comic);
+          context.go(AppRoutes.comic, extra: comic);
         },
         splashColor: AppColor.primary..withValues(alpha: 30),
         child: MouseRegion(

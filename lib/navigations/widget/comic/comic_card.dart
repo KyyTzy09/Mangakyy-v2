@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 
@@ -28,7 +29,9 @@ class _ComicCardState extends State<ComicCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.go('/comic-detail', extra: comic);
+        },
         splashColor: AppColor.primary..withValues(alpha: 30),
         child: MouseRegion(
           onEnter: (event) => setState(() => _isHovering = true),

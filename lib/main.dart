@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/widget/home/home_widget.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/app_navigation.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Mangakyy v2',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColor.background,
@@ -25,8 +24,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const MyHomePage(),
+      routerConfig: AppNavigation,
     );
   }
 }
-

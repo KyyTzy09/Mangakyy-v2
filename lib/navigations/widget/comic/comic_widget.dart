@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
 
 class ComicWidget extends StatelessWidget {
@@ -18,6 +19,7 @@ class ComicWidget extends StatelessWidget {
           return CustomScrollView(
             slivers: [
               ComicHeader(comic: comic),
+              SliverFillRemaining(hasScrollBody: false, child: ComicContent(),),
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return Container(

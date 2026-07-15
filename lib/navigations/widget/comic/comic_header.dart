@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_info_card.dart';
 
 class ComicHeader extends StatelessWidget {
   final ComicModel comic;
@@ -11,6 +12,8 @@ class ComicHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return SliverAppBar(
       expandedHeight: 500,
       pinned: true,
@@ -29,7 +32,7 @@ class ComicHeader extends StatelessWidget {
             comic.title ?? "",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: screenWidth * 0.045,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -59,7 +62,18 @@ class ComicHeader extends StatelessWidget {
             ),
             Container(
               height: double.infinity,
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    AppColor.background.withAlpha(200),
+                    AppColor.background,
+                  ],
+                ),
+              ),
             ),
             // Info Section
             Positioned(
@@ -67,8 +81,10 @@ class ComicHeader extends StatelessWidget {
               left: 16,
               right: 16,
               child: Column(
+                spacing: 8,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Status Section
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     decoration: BoxDecoration(
@@ -81,14 +97,14 @@ class ComicHeader extends StatelessWidget {
                         Icon(
                           Icons.date_range,
                           color: AppColor.primary,
-                          size: 16,
+                          size: screenWidth * 0.04,
                         ),
                         SizedBox(width: 4),
                         Text(
                           "Ongoing",
                           style: TextStyle(
                             color: AppColor.primary,
-                            fontSize: 14,
+                            fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -99,14 +115,72 @@ class ComicHeader extends StatelessWidget {
                     comic.title ?? "",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 28,
+                      fontSize: screenWidth * 0.06,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    comic.description ?? "",
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                  // Info Section
+                  Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: [
+                      ComicInfoCard(
+                        title: "8.5",
+                        icon: Icon(Icons.star, color: Colors.yellow, size: 16),
+                      ),
+                      ComicInfoCard(
+                        title: "1.2M",
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Colors.green,
+                          size: screenWidth * 0.04,
+                        ),
+                      ),
+                      ComicInfoCard(
+                        title: "Manga",
+                        icon: Icon(
+                          Icons.category,
+                          color: AppColor.primary,
+                          size: screenWidth * 0.04,
+                        ),
+                      ),
+                      ComicInfoCard(
+                        title: "43 Chapters",
+                        icon: Icon(
+                          Icons.menu_book,
+                          color: Colors.red,
+                          size: screenWidth * 0.04,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Genre Section
+                  Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColor.background.withAlpha(200),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: AppColor.primary, width: 1),
+                        ),
+                        child: Text(
+                          "Action",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.035,
+                            fontWeight: FontWeight.w100,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

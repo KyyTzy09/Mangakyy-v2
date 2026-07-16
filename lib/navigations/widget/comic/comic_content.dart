@@ -9,7 +9,11 @@ class ComicContent extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColor.background, AppColor.card],
+          colors: [
+            AppColor.primary.withAlpha(10),
+            AppColor.primary.withAlpha(10),
+            Colors.blue[900]!,
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),

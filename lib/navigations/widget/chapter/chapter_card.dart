@@ -15,17 +15,17 @@ class ChapterCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+            SizedBox(
+              height: 50,
+              width: screenWidth * 0.25,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg',
                   fit: BoxFit.cover,
-                  height: 100,
-                  width: 200,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    width: 200,
-                    height: 100,
+                    width: double.infinity,
+                    height: double.infinity,
                     color: Colors.grey,
                     child: Icon(Icons.error),
                   ),
@@ -36,8 +36,10 @@ class ChapterCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 4,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Chapter 1',

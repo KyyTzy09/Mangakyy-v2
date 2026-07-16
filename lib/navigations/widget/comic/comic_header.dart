@@ -15,7 +15,7 @@ class ComicHeader extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return SliverAppBar(
-      expandedHeight: 500,
+      expandedHeight: screenWidth * 1.2,
       pinned: true,
       floating: false,
       backgroundColor: AppColor.background.withAlpha(200),

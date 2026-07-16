@@ -8,6 +8,7 @@ class ChapterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Card(
+      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       color: AppColor.card,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
@@ -64,6 +65,10 @@ class ChapterCard extends StatelessWidget {
                 // Handle button press
               },
               style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                  vertical: screenWidth * 0.02,
+                  horizontal: screenWidth * 0.04,
+                ),
                 backgroundColor: AppColor.primary,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(

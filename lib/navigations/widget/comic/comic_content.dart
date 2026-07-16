@@ -5,20 +5,8 @@ class ComicContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColor.primary.withAlpha(10),
-            AppColor.primary.withAlpha(10),
-            Colors.blue[900]!,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return Padding(
+      padding: EdgeInsets.all(16),
       child: Column(
         spacing: 16,
         mainAxisSize: MainAxisSize.min,

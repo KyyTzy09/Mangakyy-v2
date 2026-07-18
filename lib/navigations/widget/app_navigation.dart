@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_widget.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_widget.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/home/home_widget.dart';
 
@@ -16,6 +17,12 @@ final AppNavigation = GoRouter(
       builder: (context, state) {
         final comic = state.extra as ComicModel;
         return ComicWidget(comic: comic);
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.chapter,
+      builder: (context, state) {
+        return ChapterWidget();
       },
     ),
   ],

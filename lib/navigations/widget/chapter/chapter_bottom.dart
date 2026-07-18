@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 
@@ -10,37 +12,52 @@ class ChapterBottom extends StatelessWidget {
     // TODO: implement build
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      decoration: BoxDecoration(color: AppColor.background.withOpacity(0)),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(color: Colors.white.withOpacity(0)),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       height: isVisible ? 70 : 0,
-      child: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          spacing: 5,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            IconButtonWithBackground(
-              icon: Icons.chevron_left,
-              onPressed: () {
-                // Handle previous chapter action
-              },
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(color: Colors.white.withOpacity(0.15)),
+              ),
             ),
-            IconButtonWithBackground(
-              icon: Icons.menu,
-              onPressed: () {
-                // Handle play action
-              },
-            ),
-            IconButtonWithBackground(
-              icon: Icons.play_arrow,
-              onPressed: () {
-                // Handle play action
-              },
-            ),
-            IconButtonWithBackground(
-              icon: Icons.chevron_right,
-              onPressed: () {
-                // Handle next chapter action
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 5,
+                children: [
+                  IconButtonWithBackground(
+                    icon: Icons.chevron_left,
+                    onPressed: () {
+                      // Handle previous chapter action
+                    },
+                  ),
+                  IconButtonWithBackground(
+                    icon: Icons.menu,
+                    onPressed: () {
+                      // Handle play action
+                    },
+                  ),
+                  IconButtonWithBackground(
+                    icon: Icons.play_arrow,
+                    onPressed: () {
+                      // Handle play action
+                    },
+                  ),
+                  IconButtonWithBackground(
+                    icon: Icons.chevron_right,
+                    onPressed: () {
+                      // Handle next chapter action
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

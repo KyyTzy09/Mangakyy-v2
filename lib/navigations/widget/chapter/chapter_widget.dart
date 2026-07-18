@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_top.dart';
 
 class ChapterWidget extends StatefulWidget {
   const ChapterWidget({super.key});
@@ -65,7 +66,7 @@ class _ChapterWidgetState extends State<ChapterWidget> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBody: true,
       backgroundColor: AppColor.background,
       bottomNavigationBar: ChapterBottom(isVisible: isVisibleBar),
       body: SafeArea(

@@ -1,34 +1,88 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class ChapterWidget extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
+
+class ChapterWidget extends StatefulWidget {
   const ChapterWidget({super.key});
 
   @override
+  State<ChapterWidget> createState() => _ChapterWidgetState();
+}
+
+class _ChapterWidgetState extends State<ChapterWidget> {
+  late ScrollController _scrollController;
+  late bool isVisibleBar = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_handleScroll);
+  }
+
+  void _show() {
+    setState(() {
+      if (!isVisibleBar) {
+        isVisibleBar = true;
+      }
+    });
+  }
+
+  void _hide() {
+    setState(() {
+      if (isVisibleBar) {
+        isVisibleBar = false;
+      }
+    });
+  }
+
+  void _handleScroll() {
+    switch (_scrollController.position.userScrollDirection) {
+      case ScrollDirection.forward:
+        _show();
+        break;
+      case ScrollDirection.reverse:
+        _hide();
+        break;
+      case ScrollDirection.idle:
+        setState(() {
+          isVisibleBar = true;
+        });
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  "Chapter 1",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-              ],
-            ),
-            SizedBox(height: 10),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 10, // Ganti dengan jumlah chapter yang sesuai
-              itemBuilder: (context, index) {
+      extendBodyBehindAppBar: true,
+      backgroundColor: AppColor.background,
+      bottomNavigationBar: ChapterBottom(isVisible: isVisibleBar),
+      body: SafeArea(
+        left: false,
+        right: false,
+        child: CustomScrollView(
+          controller: _scrollController,
+          scrollBehavior: ScrollBehavior().copyWith(overscroll: false),
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
                 return Image.network(
-                  'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg', // Ganti dengan URL gambar chapter yang sesuai
-                  fit: BoxFit.cover,
+                  'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg',
+                  width: screenWidth > 600 ? 400 : screenWidth,
                 );
-              },
+              }),
             ),
           ],
         ),

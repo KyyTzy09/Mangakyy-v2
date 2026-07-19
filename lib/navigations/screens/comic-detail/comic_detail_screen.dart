@@ -7,9 +7,9 @@ import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_card.dart'
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
 
-class ComicWidget extends StatelessWidget {
+class ComicDetailScreen extends StatelessWidget {
   final ComicModel comic;
-  const ComicWidget({super.key, required this.comic});
+  const ComicDetailScreen({super.key, required this.comic});
 
   @override
   Widget build(BuildContext context) {

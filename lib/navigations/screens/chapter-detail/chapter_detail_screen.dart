@@ -1,19 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_top.dart';
 
-class ChapterWidget extends StatefulWidget {
-  const ChapterWidget({super.key});
+class ChapterDetailScreen extends StatefulWidget {
+  const ChapterDetailScreen({super.key});
 
   @override
-  State<ChapterWidget> createState() => _ChapterWidgetState();
+  State<ChapterDetailScreen> createState() => _ChapterDetailScreenState();
 }
 
-class _ChapterWidgetState extends State<ChapterWidget> {
+class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
   late ScrollController _scrollController;
   late bool isVisibleBar = true;
 
@@ -22,14 +20,6 @@ class _ChapterWidgetState extends State<ChapterWidget> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_handleScroll);
-  }
-
-  void _show() {
-    setState(() {
-      if (!isVisibleBar) {
-        isVisibleBar = true;
-      }
-    });
   }
 
   void _hide() {

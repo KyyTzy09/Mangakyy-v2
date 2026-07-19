@@ -11,23 +11,25 @@ class ChapterBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return AnimatedContainer(
+      curve: Curves.easeInOut,
       duration: Duration(milliseconds: 200),
-      decoration: BoxDecoration(color: Colors.white.withOpacity(0)),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       height: isVisible ? 70 : 0,
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
         child: Stack(
+          alignment: Alignment.center,
           fit: StackFit.expand,
           children: [
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(color: Colors.white.withOpacity(0.15)),
-              ),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: SizedBox.expand(),
+            ),
+            Container(
+              decoration: BoxDecoration(color: Colors.transparent.withOpacity(0.5)),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 5,

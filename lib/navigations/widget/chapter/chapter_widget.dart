@@ -67,7 +67,7 @@ class _ChapterWidgetState extends State<ChapterWidget> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBody: true,
-      backgroundColor: AppColor.background,
+      backgroundColor: Colors.transparent,
       bottomNavigationBar: ChapterBottom(isVisible: isVisibleBar),
       body: SafeArea(
         left: false,
@@ -77,6 +77,16 @@ class _ChapterWidgetState extends State<ChapterWidget> {
           scrollBehavior: ScrollBehavior().copyWith(overscroll: false),
           physics: const BouncingScrollPhysics(),
           slivers: [
+            isVisibleBar
+                ? SliverAppBar(
+                    backgroundColor: AppColor.background.withAlpha(200),
+                    pinned: true,
+                    expandedHeight: 70,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: ChapterTop(isVisible: isVisibleBar),
+                    ),
+                  )
+                : SliverToBoxAdapter(child: SizedBox.shrink()),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return Image.network(

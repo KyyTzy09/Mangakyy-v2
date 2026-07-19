@@ -19,7 +19,6 @@ class ComicWidget extends StatelessWidget {
           final screenWidth = constraints.maxWidth;
           return SafeArea(
             top: false,
-            
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

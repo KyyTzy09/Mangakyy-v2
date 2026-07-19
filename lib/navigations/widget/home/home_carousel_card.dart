@@ -10,10 +10,10 @@ class HomeCarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: SizedBox(
-        height: 200,
         child: Stack(
           alignment: Alignment.center,
           fit: StackFit.expand,
@@ -41,24 +41,25 @@ class HomeCarouselCard extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
             ),
             SizedBox(
-              height: 200,
+              height: 180,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(
                   spacing: 15,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
-                        width: 100,
-                        height: double.infinity,
+                        width: screenWidth > 600 ? 150 : 100,
+                        height: screenWidth > 600 ? 200 : 140,
                         fit: BoxFit.cover,
                         filterQuality: FilterQuality.high,
                         errorBuilder: (context, error, stackTrace) => Container(
-                          width: 100,
-                          height: double.infinity,
+                          width: screenWidth > 600 ? 150 : 100,
+                          height: screenWidth > 600 ? 200 : 140,
                           color: Colors.grey,
                           child: Icon(Icons.error),
                         ),
@@ -75,7 +76,7 @@ class HomeCarouselCard extends StatelessWidget {
                             child: Text(
                               "ITSUKA KOTORI",
                               style: TextStyle(
-                                color: AppColor .primary,
+                                color: AppColor.primary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
@@ -92,7 +93,7 @@ class HomeCarouselCard extends StatelessWidget {
                             ),
                           ),
                           Row(
-                            children: [ 
+                            children: [
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,

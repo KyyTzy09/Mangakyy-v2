@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 
 class ChapterTop extends StatelessWidget {
@@ -20,7 +22,12 @@ class ChapterTop extends StatelessWidget {
             spacing: 5,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+              IconButton(
+                onPressed: () {
+                  context.go(AppRoutes.comic);
+                },
+                icon: Icon(Icons.arrow_back),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

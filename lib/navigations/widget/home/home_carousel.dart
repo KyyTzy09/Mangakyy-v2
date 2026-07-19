@@ -67,8 +67,9 @@ class _HomeCarouselState extends State<HomeCarousel> {
     double width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width,
-      height: 200,
+      height: 180,
       child: Stack(
+        clipBehavior: Clip.none,
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: [
@@ -83,7 +84,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
             },
           ),
           Positioned(
-            bottom: 8,
+            bottom: 5,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,

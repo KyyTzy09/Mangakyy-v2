@@ -10,58 +10,58 @@ class ChapterBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return AnimatedContainer(
-      curve: Curves.easeInOut,
-      duration: Duration(milliseconds: 200),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      height: isVisible ? 70 : 0,
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: [
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: SizedBox.expand(),
-            ),
-            Container(
-              decoration: BoxDecoration(color: Colors.transparent.withOpacity(0.5)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                spacing: 5,
-                children: [
-                  IconButtonWithBackground(
-                    icon: Icons.chevron_left,
-                    onPressed: () {
-                      // Handle previous chapter action
-                    },
-                  ),
-                  IconButtonWithBackground(
-                    icon: Icons.menu,
-                    onPressed: () {
-                      // Handle play action
-                    },
-                  ),
-                  IconButtonWithBackground(
-                    icon: Icons.play_arrow,
-                    onPressed: () {
-                      // Handle play action
-                    },
-                  ),
-                  IconButtonWithBackground(
-                    icon: Icons.chevron_right,
-                    onPressed: () {
-                      // Handle next chapter action
-                    },
-                  ),
-                ],
+    return AnimatedSlide(
+      offset: isVisible ? Offset.zero : const Offset(0, 1.0),
+      duration: const Duration(milliseconds: 200),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        height: 70,
+        child: ClipRRect(
+          borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent.withOpacity(0.5),
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 5,
+                  children: [
+                    IconButtonWithBackground(
+                      icon: Icons.chevron_left,
+                      onPressed: () {
+                        // Handle previous chapter action
+                      },
+                    ),
+                    IconButtonWithBackground(
+                      icon: Icons.menu,
+                      onPressed: () {
+                        // Handle play action
+                      },
+                    ),
+                    IconButtonWithBackground(
+                      icon: Icons.play_arrow,
+                      onPressed: () {
+                        // Handle play action
+                      },
+                    ),
+                    IconButtonWithBackground(
+                      icon: Icons.chevron_right,
+                      onPressed: () {
+                        // Handle next chapter action
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

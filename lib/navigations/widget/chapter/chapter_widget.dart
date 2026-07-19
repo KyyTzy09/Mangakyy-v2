@@ -43,7 +43,7 @@ class _ChapterWidgetState extends State<ChapterWidget> {
   void _handleScroll() {
     switch (_scrollController.position.userScrollDirection) {
       case ScrollDirection.forward:
-        _show();
+        _hide();
         break;
       case ScrollDirection.reverse:
         _hide();
@@ -68,34 +68,48 @@ class _ChapterWidgetState extends State<ChapterWidget> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
-      bottomNavigationBar: ChapterBottom(isVisible: isVisibleBar),
       body: SafeArea(
         left: false,
         right: false,
-        child: CustomScrollView(
-          controller: _scrollController,
-          scrollBehavior: ScrollBehavior().copyWith(overscroll: false),
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            isVisibleBar
-                ? SliverAppBar(
-                    backgroundColor: AppColor.background.withAlpha(200),
-                    pinned: true,
-                    expandedHeight: 70,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: ChapterTop(isVisible: isVisibleBar),
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              isVisibleBar = !isVisibleBar;
+            });
+          },
+          child: Container(
+            width: screenWidth,
+            decoration: BoxDecoration(color: AppColor.background),
+            child: Stack(
+              children: [
+                CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return Image.network(
+                          'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg',
+                          width: screenWidth > 600 ? 400 : screenWidth,
+                        );
+                      }),
                     ),
-                  )
-                : SliverToBoxAdapter(child: SizedBox.shrink()),
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Image.network(
-                  'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg',
-                  width: screenWidth > 600 ? 400 : screenWidth,
-                );
-              }),
+                  ],
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: ChapterTop(isVisible: isVisibleBar),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: ChapterBottom(isVisible: isVisibleBar),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

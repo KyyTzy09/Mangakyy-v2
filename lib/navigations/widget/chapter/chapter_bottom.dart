@@ -9,7 +9,6 @@ class ChapterBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return AnimatedSlide(
       offset: isVisible ? Offset.zero : const Offset(0, 1.0),
       duration: const Duration(milliseconds: 200),
@@ -37,12 +36,6 @@ class ChapterBottom extends StatelessWidget {
                       icon: Icons.chevron_left,
                       onPressed: () {
                         // Handle previous chapter action
-                      },
-                    ),
-                    IconButtonWithBackground(
-                      icon: Icons.menu,
-                      onPressed: () {
-                        // Handle play action
                       },
                     ),
                     IconButtonWithBackground(

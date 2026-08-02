@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
 
 class ChapterCard extends StatelessWidget {
-  const ChapterCard({Key? key}) : super(key: key);
+  final ComicModel comic;
+  const ChapterCard({Key? key, required this.comic}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class ChapterCard extends StatelessWidget {
       color: AppColor.card,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
-        onTap: () => context.go(AppRoutes.chapter),
+        onTap: () => context.go(AppRoutes.chapter, extra: comic),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.02),
           child: Row(

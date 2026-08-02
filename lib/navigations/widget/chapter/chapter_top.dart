@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 
 class ChapterTop extends StatelessWidget {
+  final ComicModel comic;
   final bool isVisible;
-  const ChapterTop({super.key, this.isVisible = true});
+  const ChapterTop({super.key, this.isVisible = true, required this.comic});
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSlide(
@@ -24,7 +26,7 @@ class ChapterTop extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  context.go(AppRoutes.comic);
+                  context.go(AppRoutes.comic, extra: comic);
                 },
                 icon: Icon(Icons.arrow_back),
               ),

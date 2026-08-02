@@ -19,7 +19,8 @@ final appNavigation = GoRouter(
     GoRoute(
       path: AppRoutes.chapter,
       builder: (context, state) {
-        return ChapterDetailScreen();
+        final c = state.extra as ComicModel;
+        return ChapterDetailScreen(comic: c);
       },
     ),
   ],

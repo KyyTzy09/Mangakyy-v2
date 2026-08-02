@@ -67,7 +67,7 @@ class ComicDetailScreen extends StatelessWidget {
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      return ChapterCard();
+                      return ChapterCard(comic: comic,);
                     }, childCount: 20),
                   ),
                   SliverToBoxAdapter(child: SizedBox(height: 20)),

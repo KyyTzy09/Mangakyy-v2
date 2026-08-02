@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_top.dart';
 
 class ChapterDetailScreen extends StatefulWidget {
-  const ChapterDetailScreen({super.key});
+  final ComicModel comic;
+  const ChapterDetailScreen({super.key, required this.comic});
 
   @override
   State<ChapterDetailScreen> createState() => _ChapterDetailScreenState();
@@ -89,7 +91,7 @@ class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: ChapterTop(isVisible: isVisibleBar),
+                  child: ChapterTop(isVisible: isVisibleBar, comic: widget.comic),
                 ),
                 Positioned(
                   bottom: 0,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_update_card.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/home/home_carousel.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/home/home_header.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_card.dart';
@@ -201,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                   spacing: 10,
                   children: [
                     HomeHeader(
-                      icon: Icon(Icons.bookmark, color: Colors.amber),
+                      icon: Icon(Icons.bookmark_outline, color: Colors.amber),
                       title: "Popular",
                     ),
                     HomeSwitcher(),
@@ -219,6 +220,13 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) =>
                     ComicCard(comic: comicList[index]),
+              ),
+              ListView.builder( 
+                itemCount: comicList.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) =>
+                    ComicUpdateCard(comic: comicList[index]),
               ),
             ],
           ),

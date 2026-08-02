@@ -7,6 +7,7 @@ import 'package:mangakyy_v2_mobile/navigations/screens/comic-detail/comic_detail
 
 final appNavigation = GoRouter(
   initialLocation: AppRoutes.home,
+  
   routes: [
     GoRoute(path: AppRoutes.home, builder: (context, state) => HomeScreen()),
     GoRoute(

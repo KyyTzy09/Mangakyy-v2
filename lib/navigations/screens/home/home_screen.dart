@@ -6,6 +6,7 @@ import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/home/home_carousel.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/home/home_header.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_card.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/home/home_switcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -156,9 +157,17 @@ class HomeScreen extends StatelessWidget {
             children: [
               HomeCarousel(comicList: comicList),
               // Recommended Section
-              HomeHeader(
-                icon: Icon(Icons.trending_up, color: Colors.red),
-                title: "Recommended",
+              Center(
+                child: Column(
+                  spacing: 10,
+                  children: [
+                    HomeHeader(
+                      icon: Icon(Icons.trending_up, color: Colors.red),
+                      title: "Recommended",
+                    ),
+                    HomeSwitcher(),
+                  ],
+                ),
               ),
               LayoutBuilder(
                 builder: (context, constraints) {
@@ -187,9 +196,17 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
               // Popular Section
-              HomeHeader(
-                icon: Icon(Icons.bookmark, color: Colors.amber),
-                title: "Popular",
+              Center(
+                child: Column(
+                  spacing: 10,
+                  children: [
+                    HomeHeader(
+                      icon: Icon(Icons.bookmark, color: Colors.amber),
+                      title: "Popular",
+                    ),
+                    HomeSwitcher(),
+                  ],
+                ),
               ),
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

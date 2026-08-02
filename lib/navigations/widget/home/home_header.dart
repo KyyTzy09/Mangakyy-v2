@@ -9,9 +9,10 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Row(
       spacing: 8,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: screenWidth < 600 ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         icon,
         Text(

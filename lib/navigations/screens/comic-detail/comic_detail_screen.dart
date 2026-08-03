@@ -5,6 +5,7 @@ import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_card.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_bottom_sheet.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
 
@@ -17,7 +18,7 @@ class ComicDetailScreen extends StatefulWidget {
 }
 
 class _ComicDetailScreenState extends State<ComicDetailScreen> {
-  bool isDrawerOpen = false;
+  bool isBottomSheetOpen = false;
   int currentPage = 1;
 
   late final ComicModel comic = widget.comic;
@@ -26,9 +27,22 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
     Navigator.of(context).pop();
   }
 
-  void _showDrawer() {
+  void _showSheet() {
     setState(() {
-      isDrawerOpen = !isDrawerOpen;
+      isBottomSheetOpen = true;
+      if (isBottomSheetOpen) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => ComicBottomSheet(
+          ),
+        ).whenComplete(() {
+          setState(() {
+            isBottomSheetOpen = false;
+          });
+        });
+      }
     });
   }
 
@@ -138,7 +152,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            _showDrawer();
+                            _showSheet();
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

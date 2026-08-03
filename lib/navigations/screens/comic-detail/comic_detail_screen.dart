@@ -3,13 +3,50 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_card.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
 import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
 
-class ComicDetailScreen extends StatelessWidget {
+class ComicDetailScreen extends StatefulWidget {
   final ComicModel comic;
   const ComicDetailScreen({super.key, required this.comic});
+
+  @override
+  State<ComicDetailScreen> createState() => _ComicDetailScreenState();
+}
+
+class _ComicDetailScreenState extends State<ComicDetailScreen> {
+  bool isDrawerOpen = false;
+  int currentPage = 1;
+
+  late final ComicModel comic = widget.comic;
+
+  void _onBackButtonPressed(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  void _showDrawer() {
+    setState(() {
+      isDrawerOpen = !isDrawerOpen;
+    });
+  }
+
+  void _nextChapter() {
+    setState(() {
+      if (currentPage < 20) {
+        currentPage++;
+      }
+    });
+  }
+
+  void _previousChapter() {
+    setState(() {
+      if (currentPage > 1) {
+        currentPage--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +104,7 @@ class ComicDetailScreen extends StatelessWidget {
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      return ChapterCard(comic: comic,);
+                      return ChapterCard(comic: comic);
                     }, childCount: 20),
                   ),
                   SliverToBoxAdapter(child: SizedBox(height: 20)),
@@ -81,7 +118,7 @@ class ComicDetailScreen extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            // Handle button press
+                            _previousChapter();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.primary,
@@ -99,28 +136,33 @@ class ComicDetailScreen extends StatelessWidget {
                             size: screenWidth * 0.05,
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: screenWidth * 0.02,
-                            horizontal: screenWidth * 0.04,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColor.primary.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: AppColor.primary),
-                          ),
-                          child: Text(
-                            "1 / 20",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: screenWidth * 0.04,
-                              fontWeight: FontWeight.bold,
+                        InkWell(
+                          onTap: () {
+                            _showDrawer();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: screenWidth * 0.02,
+                              horizontal: screenWidth * 0.04,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColor.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColor.primary),
+                            ),
+                            child: Text(
+                              currentPage.toString() + " / " + "20",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.04,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Handle button press
+                            _nextChapter();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.primary,

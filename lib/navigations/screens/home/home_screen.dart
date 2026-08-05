@@ -1,26 +1,22 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/common/models/comic_model.dart';
-import 'package:mobile/core/colors/app_color.dart';
-import 'package:mobile/widget/home/home_carousel.dart';
-import 'package:mobile/widget/manga/manga_card.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_update_card.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/home/home_carousel.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/home/home_header.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_card.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/home/home_switcher.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".];
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<ComicModel> mangaList = [
+    double width = MediaQuery.of(context).size.width;
+
+    final List<ComicModel> comicList = [
       ComicModel(
         title: "Evernight honkai star rail",
         image:
@@ -154,34 +150,83 @@ class MyHomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(width < 600 ? 10 : 20),
           child: Column(
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HomeCarousel(),
-              SizedBox(height: 20),
+              HomeCarousel(comicList: comicList),
+              // Recommended Section
+              Center(
+                child: Column(
+                  spacing: 10,
+                  children: [
+                    HomeHeader(
+                      icon: Icon(Icons.trending_up, color: Colors.red),
+                      title: "Recommended",
+                    ),
+                    HomeSwitcher(),
+                  ],
+                ),
+              ),
               LayoutBuilder(
                 builder: (context, constraints) {
                   int columns = (constraints.maxWidth / 200).round();
+                  final comic = comicList[0];
 
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns < 3 ? 3 : columns,
+                      crossAxisCount: width < 300
+                          ? 2
+                          : columns < 3
+                          ? 3
+                          : columns,
                       childAspectRatio: 0.7,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       mainAxisExtent: columns < 3 ? 200 : 300,
                     ),
-                    itemCount: mangaList.length,
+                    itemCount: comicList.length,
                     itemBuilder: (context, index) {
-                      return MangaCard(manga: mangaList[index]);
+                      return ComicCard(comic: comic);
                     },
                   );
                 },
+              ),
+              // Popular Section
+              Center(
+                child: Column(
+                  spacing: 10,
+                  children: [
+                    HomeHeader(
+                      icon: Icon(Icons.bookmark_outline, color: Colors.amber),
+                      title: "Popular",
+                    ),
+                    HomeSwitcher(),
+                  ],
+                ),
+              ),
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 250,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: comicList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) =>
+                    ComicCard(comic: comicList[index]),
+              ),
+              ListView.builder( 
+                itemCount: comicList.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) =>
+                    ComicUpdateCard(comic: comicList[index]),
               ),
             ],
           ),

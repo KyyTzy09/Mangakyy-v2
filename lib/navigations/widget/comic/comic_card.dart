@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/models/comic_model.dart';
-import 'package:mobile/core/colors/app_color.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
+import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
+import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
 
-class MangaCard extends StatefulWidget {
-  final ComicModel manga;
-  const MangaCard({super.key, required this.manga});
+class ComicCard extends StatefulWidget {
+  final ComicModel comic;
+  const ComicCard({super.key, required this.comic});
 
   @override
-  State<MangaCard> createState() => _MangaCardState();
+  State<ComicCard> createState() => _ComicCardState();
 }
 
-class _MangaCardState extends State<MangaCard> {
-  late ComicModel manga;
+class _ComicCardState extends State<ComicCard> {
+  late ComicModel comic;
   bool _isHovering = false;
 
   @override
   void initState() {
     super.initState();
-    manga = widget.manga;
+    comic = widget.comic;
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Card(
       color: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.go(AppRoutes.comic, extra: comic);
+        },
         splashColor: AppColor.primary..withValues(alpha: 30),
         child: MouseRegion(
           onEnter: (event) => setState(() => _isHovering = true),
@@ -53,9 +58,10 @@ class _MangaCardState extends State<MangaCard> {
                         ),
                         child: AnimatedScale(
                           scale: _isHovering ? 1.1 : 1.0,
+                          curve: Curves.fastOutSlowIn,
                           duration: Duration(milliseconds: 200),
                           child: Image.network(
-                            manga.image ?? "",
+                            comic.image ?? "",
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -87,6 +93,7 @@ class _MangaCardState extends State<MangaCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 decoration: BoxDecoration(
@@ -96,9 +103,12 @@ class _MangaCardState extends State<MangaCard> {
                                     topLeft: Radius.circular(10),
                                   ),
                                 ),
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 5,
+                                ),
                                 child: Text(
-                                  manga.status ?? "",
+                                  "KR",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -107,6 +117,41 @@ class _MangaCardState extends State<MangaCard> {
                                     fontWeight: FontWeight.w100,
                                   ),
                                   textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.7),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 5,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 12,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      "0.0",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -126,18 +171,23 @@ class _MangaCardState extends State<MangaCard> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                   child: Text(
-                                    manga.title ?? "",
+                                    comic.title ?? "",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: AppColor.text,
+                                      fontSize: width < 400 ? 12 : 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Text(
-                                  manga.chapter ?? "",
+                                  comic.chapter ?? "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: AppColor.text.withValues(alpha: 110),
-                                    fontSize: 12,
+                                    fontSize: width < 300 ? 10 : 12,
                                     fontWeight: FontWeight.w100,
                                   ),
                                 ),
@@ -152,12 +202,29 @@ class _MangaCardState extends State<MangaCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  manga.description ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                  textAlign: TextAlign.left,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 3,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.timer_outlined,
+                        color: AppColor.primary,
+                        size: width < 300 ? 10 : width < 600 ? 12 : 14,
+                      ),
+                      Text(
+                        "10 min ago",
+                        style: TextStyle(
+                          color: AppColor.text.withValues(alpha: 110),
+                          fontWeight: FontWeight.w100,
+                          fontSize: width < 300 ? 8 : 12,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_info_card.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_info_card.dart';
 
 class ComicHeader extends StatelessWidget {
   final ComicModel comic;

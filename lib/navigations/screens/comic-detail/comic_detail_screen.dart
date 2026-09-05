@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_card.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_bottom_sheet.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_bottom.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_card.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_bottom_sheet.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_content.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_header.dart';
 
 class ComicDetailScreen extends StatefulWidget {
   final ComicModel comic;

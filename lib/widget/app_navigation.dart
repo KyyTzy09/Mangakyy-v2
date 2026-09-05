@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/navigations/screens/home/home_screen.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
+import 'package:mangakyy_v2_mobile/widget/app_routes.dart';
 import 'package:mangakyy_v2_mobile/navigations/screens/chapter-detail/chapter_detail_screen.dart';
 import 'package:mangakyy_v2_mobile/navigations/screens/comic-detail/comic_detail_screen.dart';
 

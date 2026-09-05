@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_update_card.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/home/home_carousel.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/home/home_header.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_card.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/home/home_switcher.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_update_card.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_carousel.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_header.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_card.dart';
+import 'package:mangakyy_v2_mobile/widget/home/home_switcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

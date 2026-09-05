@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/app_navigation.dart';
+import 'package:mangakyy_v2_mobile/widget/app_navigation.dart';
 
 void main() {
   runApp(MyApp());

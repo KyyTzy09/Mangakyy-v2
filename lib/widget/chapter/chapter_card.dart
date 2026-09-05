@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/app_routes.dart';
+import 'package:mangakyy_v2_mobile/widget/app_routes.dart';
 
 class ChapterCard extends StatelessWidget {
   final ComicModel comic;

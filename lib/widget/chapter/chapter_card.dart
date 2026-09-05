@@ -18,13 +18,13 @@ class ChapterCard extends StatelessWidget {
       child: InkWell(
         onTap: () => context.go(AppRoutes.chapter, extra: comic),
         child: Padding(
-          padding: EdgeInsets.all(screenWidth * 0.02),
+          padding: EdgeInsets.all(screenWidth > 600 ? 10 : screenWidth * 0.02),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 height: 50,
-                width: screenWidth * 0.25,
+                width: screenWidth > 600 ? 100 : screenWidth * 0.25,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
@@ -51,7 +51,7 @@ class ChapterCard extends StatelessWidget {
                       Text(
                         'Chapter 1',
                         style: TextStyle(
-                          fontSize: screenWidth * 0.04,
+                          fontSize: screenWidth > 600 ? 16 : screenWidth * 0.04,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -59,7 +59,7 @@ class ChapterCard extends StatelessWidget {
                         "5 days ago",
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: screenWidth * 0.035,
+                          fontSize: screenWidth > 600 ? 12 : screenWidth * 0.035,
                         ),
                       ),
                     ],
@@ -72,8 +72,8 @@ class ChapterCard extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
-                    vertical: screenWidth * 0.02,
-                    horizontal: screenWidth * 0.04,
+                    vertical: screenWidth > 600 ? 10 : screenWidth * 0.02,
+                    horizontal: screenWidth > 600 ? 20 : screenWidth * 0.04,
                   ),
                   backgroundColor: AppColor.primary,
                   foregroundColor: Colors.white,
@@ -83,7 +83,7 @@ class ChapterCard extends StatelessWidget {
                 ),
                 child: Text(
                   'Baca',
-                  style: TextStyle(fontSize: screenWidth * 0.035),
+                  style: TextStyle(fontSize: screenWidth > 600 ? 14 : screenWidth * 0.035),
                 ),
               ),
             ],

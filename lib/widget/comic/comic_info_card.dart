@@ -25,8 +25,7 @@ class ComicInfoCard extends StatelessWidget {
             title,
             style: TextStyle(
               color: Colors.white,
-              fontSize:
-                  screenWidth * 0.035, // Adjust font size based on screen width
+              fontSize: screenWidth < 600 ? 12 : 16, // Adjust font size based on screen width
               fontWeight: FontWeight.bold,
             ),
           ),

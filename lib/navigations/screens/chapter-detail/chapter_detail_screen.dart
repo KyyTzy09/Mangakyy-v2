@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_top.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_bottom.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_top.dart';
 
 class ChapterDetailScreen extends StatefulWidget {
   final ComicModel comic;
@@ -16,12 +16,15 @@ class ChapterDetailScreen extends StatefulWidget {
 class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
   late ScrollController _scrollController;
   late bool isVisibleBar = true;
+  late double scrollSpeed;
+  bool isAutoScroll = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_handleScroll);
+    scrollSpeed = 1.0;
   }
 
   void _hide() {
@@ -41,11 +44,47 @@ class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
         _hide();
         break;
       case ScrollDirection.idle:
-        setState(() {
-          isVisibleBar = true;
-        });
+        _hide();
         break;
     }
+  }
+
+  void _scrollToBottom() {
+    int durationInMilliseconds = (50000 / scrollSpeed)
+        .toInt(); // Adjust duration based on speed
+    if (_scrollController.hasClients && isAutoScroll) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent, // Target: Bottom
+        duration: Duration(
+          milliseconds: durationInMilliseconds,
+        ), // Duration based on speed
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _startAutoScroll() {
+    setState(() {
+      isAutoScroll = true;
+    });
+    _scrollToBottom();
+  }
+
+  void _stopAutoScroll() {
+    setState(() {
+      isAutoScroll = false;
+    });
+    _scrollController.animateTo(
+      _scrollController.offset, // Stay at the current position
+      duration: const Duration(milliseconds: 500), // Smooth stop
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _setScrollSpeed(double value) {
+    setState(() {
+      scrollSpeed = value;
+    });
   }
 
   @override
@@ -59,47 +98,65 @@ class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBody: true,
-      backgroundColor: Colors.transparent,
-      body: SafeArea(
-        left: false,
-        right: false,
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              isVisibleBar = !isVisibleBar;
-            });
-          },
-          child: Container(
-            width: screenWidth,
-            decoration: BoxDecoration(color: AppColor.background),
-            child: Stack(
-              children: [
-                CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        return Image.network(
-                          'https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg',
-                          width: screenWidth > 600 ? 400 : screenWidth,
-                        );
-                      }),
+      backgroundColor: AppColor.background,
+      body: Center(
+        child: SafeArea(
+          left: false,
+          right: false,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                isVisibleBar = !isVisibleBar;
+              });
+              _stopAutoScroll();
+            },
+            child: Container(
+              width: screenWidth < 600 ? screenWidth : 600,
+              decoration: BoxDecoration(color: AppColor.background),
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    controller: _scrollController,
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return Image.network(
+                        "https://i.pinimg.com/736x/0d/8c/5b/0d8c5b8118f427939a12560cca76158e.jpg",
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          color: Colors.grey,
+                          child: Icon(Icons.error),
+                        ),
+                      );
+                    },
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: ChapterTop(
+                      isVisible: isVisibleBar,
+                      comic: widget.comic,
                     ),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: ChapterTop(isVisible: isVisibleBar, comic: widget.comic),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: ChapterBottom(isVisible: isVisibleBar),
-                ),
-              ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: ChapterBottom(
+                      isVisible: isVisibleBar,
+                      isAutoScroll: isAutoScroll,
+                      scrollSpeed: scrollSpeed,
+                      onSliderChange: _setScrollSpeed,
+                      startAutoScroll: _startAutoScroll,
+                      stopAutoScroll: _stopAutoScroll,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

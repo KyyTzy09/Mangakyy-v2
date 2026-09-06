@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_info_card.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_info_card.dart';
 
 class ComicHeader extends StatelessWidget {
   final ComicModel comic;
@@ -15,7 +15,7 @@ class ComicHeader extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return SliverAppBar(
-      expandedHeight: screenWidth * 1.2,
+      expandedHeight: screenWidth < 600 ? screenWidth * 1.2 : 500,
       pinned: true,
       floating: false,
       backgroundColor: AppColor.background.withAlpha(200),
@@ -32,7 +32,7 @@ class ComicHeader extends StatelessWidget {
             comic.title ?? "",
             style: TextStyle(
               color: Colors.white,
-              fontSize: screenWidth * 0.045,
+              fontSize: screenWidth > 600 ? 20 : screenWidth * 0.045,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -97,14 +97,16 @@ class ComicHeader extends StatelessWidget {
                         Icon(
                           Icons.date_range,
                           color: AppColor.primary,
-                          size: screenWidth * 0.04,
+                          size: screenWidth > 600 ? 16 : screenWidth * 0.04,
                         ),
                         SizedBox(width: 4),
                         Text(
                           "Ongoing",
                           style: TextStyle(
                             color: AppColor.primary,
-                            fontSize: screenWidth * 0.035,
+                            fontSize: screenWidth > 600
+                                ? 16
+                                : screenWidth * 0.035,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -115,7 +117,7 @@ class ComicHeader extends StatelessWidget {
                     comic.title ?? "",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth > 600 ? 24 : screenWidth * 0.06,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -134,7 +136,7 @@ class ComicHeader extends StatelessWidget {
                         icon: Icon(
                           Icons.visibility,
                           color: Colors.green,
-                          size: screenWidth * 0.04,
+                          size: screenWidth > 600 ? 16 : screenWidth * 0.04,
                         ),
                       ),
                       ComicInfoCard(
@@ -142,7 +144,7 @@ class ComicHeader extends StatelessWidget {
                         icon: Icon(
                           Icons.category,
                           color: AppColor.primary,
-                          size: screenWidth * 0.04,
+                          size: screenWidth > 600 ? 16 : screenWidth * 0.04,
                         ),
                       ),
                       ComicInfoCard(
@@ -150,7 +152,7 @@ class ComicHeader extends StatelessWidget {
                         icon: Icon(
                           Icons.menu_book,
                           color: Colors.red,
-                          size: screenWidth * 0.04,
+                          size: screenWidth > 600 ? 16 : screenWidth * 0.04,
                         ),
                       ),
                     ],
@@ -175,7 +177,9 @@ class ComicHeader extends StatelessWidget {
                           "Action",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: screenWidth * 0.035,
+                            fontSize: screenWidth > 600
+                                ? 16
+                                : screenWidth * 0.035,
                             fontWeight: FontWeight.w100,
                           ),
                         ),

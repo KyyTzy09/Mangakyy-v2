@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_bottom.dart';
 
 class HomeSwitcher extends StatefulWidget {
   const HomeSwitcher({super.key});

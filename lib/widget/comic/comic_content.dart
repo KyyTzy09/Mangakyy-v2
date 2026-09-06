@@ -29,14 +29,14 @@ class ComicContent extends StatelessWidget {
                       "Terakhir Dibaca",
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: screenWidth * 0.035,
+                        fontSize: screenWidth > 600 ? 12 : screenWidth * 0.035,
                       ),
                     ),
                     Text(
                       "Chapter 20",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: screenWidth * 0.05,
+                        fontSize: screenWidth > 600 ? 16 : screenWidth * 0.05,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -44,7 +44,7 @@ class ComicContent extends StatelessWidget {
                       "2 Hari yang lalu",
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: screenWidth * 0.035,
+                        fontSize: screenWidth > 600 ? 12 : screenWidth * 0.035,
                       ),
                     ),
                   ],
@@ -60,7 +60,7 @@ class ComicContent extends StatelessWidget {
                     "Lanjutkan",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: screenWidth * 0.04,
+                      fontSize: screenWidth > 600 ? 16 : screenWidth * 0.04,
                     ),
                   ),
                 ),
@@ -76,7 +76,7 @@ class ComicContent extends StatelessWidget {
                 "Sinopsis",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: screenWidth * 0.05,
+                  fontSize: screenWidth > 600 ? 16 : screenWidth * 0.05,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -86,7 +86,7 @@ class ComicContent extends StatelessWidget {
                 "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                 style: TextStyle(
                   color: Colors.white70,
-                  fontSize: screenWidth * 0.04,
+                  fontSize: screenWidth > 600 ? 12 : screenWidth * 0.04,
                 ),
               ),
             ],

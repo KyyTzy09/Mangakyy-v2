@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mangakyy_v2_mobile/common/models/comic_model.dart';
 import 'package:mangakyy_v2_mobile/core/colors/app_color.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_bottom.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/chapter/chapter_card.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_bottom_sheet.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_content.dart';
-import 'package:mangakyy_v2_mobile/navigations/widget/comic/comic_header.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_bottom.dart';
+import 'package:mangakyy_v2_mobile/widget/chapter/chapter_card.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_bottom_sheet.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_content.dart';
+import 'package:mangakyy_v2_mobile/widget/comic/comic_header.dart';
 
 class ComicDetailScreen extends StatefulWidget {
   final ComicModel comic;
@@ -35,8 +35,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
-          builder: (context) => ComicBottomSheet(
-          ),
+          builder: (context) => ComicBottomSheet(),
         ).whenComplete(() {
           setState(() {
             isBottomSheetOpen = false;
@@ -65,139 +64,163 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.background,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final screenWidth = constraints.maxWidth;
-          return SafeArea(
-            top: false,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColor.primary.withAlpha(30),
-                    AppColor.primary.withAlpha(30),
-                    Colors.blue[900]!,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: CustomScrollView(
-                scrollBehavior: ScrollBehavior().copyWith(overscroll: false),
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  // Ini Header
-                  ComicHeader(comic: comic),
-                  // Ini Content
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: ComicContent(),
+          return Center(
+            child: SafeArea(
+              top: false,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                width: screenWidth < 600 ? screenWidth : 600,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColor.primary.withAlpha(30),
+                      AppColor.primary.withAlpha(30),
+                      Colors.blue[900]!,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                  // Ini Chapter List
-                  SliverToBoxAdapter(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppColor.primary, width: 1),
+                ),
+                child: CustomScrollView(
+                  scrollBehavior: ScrollBehavior().copyWith(overscroll: false),
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    // Ini Header
+                    ComicHeader(comic: comic),
+                    // Ini Content
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: ComicContent(),
+                    ),
+                    // Ini Chapter List
+                    SliverToBoxAdapter(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColor.primary,
+                              width: 1,
+                            ),
+                          ),
                         ),
-                      ),
-                      padding: EdgeInsets.only(bottom: 10),
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 16,
-                      ),
-                      child: Text(
-                        "Chapter List",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.045,
-                          fontWeight: FontWeight.bold,
+                        padding: EdgeInsets.only(bottom: 10),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          "Chapter List",
+                          style: TextStyle(
+                            fontSize: screenWidth < 600
+                                ? screenWidth * 0.045
+                                : 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return ChapterCard(comic: comic);
-                    }, childCount: 20),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: 20)),
-                  // Ini Pagination
-                  SliverToBoxAdapter(
-                    child: Row(
-                      spacing: screenWidth * 0.02,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _previousChapter();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.primary,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenWidth * 0.02,
-                              horizontal: screenWidth * 0.04,
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return ChapterCard(comic: comic);
+                      }, childCount: 20),
+                    ),
+                    SliverToBoxAdapter(child: SizedBox(height: 20)),
+                    // Ini Pagination
+                    SliverToBoxAdapter(
+                      child: Row(
+                        spacing: 8,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              _previousChapter();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.primary,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                vertical: screenWidth > 600
+                                    ? 10
+                                    : screenWidth * 0.02,
+                                horizontal: screenWidth > 600
+                                    ? 20
+                                    : screenWidth * 0.04,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                            child: Icon(
+                              Icons.arrow_back,
+                              size: screenWidth > 600 ? 24 : screenWidth * 0.05,
                             ),
                           ),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: screenWidth * 0.05,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _showSheet();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenWidth * 0.02,
-                              horizontal: screenWidth * 0.04,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColor.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColor.primary),
-                            ),
-                            child: Text(
-                              currentPage.toString() + " / " + "20",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: screenWidth * 0.04,
-                                fontWeight: FontWeight.bold,
+                          InkWell(
+                            onTap: () {
+                              _showSheet();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: screenWidth < 600
+                                    ? screenWidth * 0.02
+                                    : 10,
+                                horizontal: screenWidth < 600
+                                    ? screenWidth * 0.04
+                                    : 20,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColor.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: AppColor.primary),
+                              ),
+                              child: Text(
+                                currentPage.toString() + " / " + "20",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: screenWidth > 600
+                                      ? 16
+                                      : screenWidth * 0.04,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _nextChapter();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.primary,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenWidth * 0.02,
-                              horizontal: screenWidth * 0.04,
+                          ElevatedButton(
+                            onPressed: () {
+                              _nextChapter();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.primary,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                vertical: screenWidth < 600
+                                    ? screenWidth * 0.02
+                                    : 10,
+                                horizontal: screenWidth < 600
+                                    ? screenWidth * 0.04
+                                    : 20,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                            child: Icon(
+                              Icons.arrow_forward,
+                              size: screenWidth < 600 ? screenWidth * 0.05 : 25,
                             ),
                           ),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            size: screenWidth * 0.05,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
